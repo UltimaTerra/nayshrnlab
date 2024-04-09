@@ -763,10 +763,7 @@ proc genBindings(t: TopLevel, fname: string; header, middle: string) =
     proc generateProcs(holder: seq[FunctionInfo]) =
       for fnc in items(holder):
         if fnc.name in excludedFuncs: continue
-        if fnc.name in nosideeffectsFuncs:
-          lit "\nfunc "
-        else:
-          lit "\nproc "
+        lit "\nproc "
         var fncName = fnc.name # Follow Nim's naming convention for proc names.
         if fncName notin ["DrawRectangleGradientV", "SetShaderValueV", "ColorToHSV", "ColorFromHSV",
             "CheckCollisionCircleRec", "CheckCollisionPointRec"] and
@@ -858,9 +855,6 @@ proc genBindings(t: TopLevel, fname: string; header, middle: string) =
     lit "\n{.push callconv: cdecl, header: \"raylib.h\", noSideEffect.}"
     generateProcs withoutSideEffect
     lit "\n{.pop.}\n"
-
-
-
 
     lit readFile("raylib_types.nim")
     lit "\n"
