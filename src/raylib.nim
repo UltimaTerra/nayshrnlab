@@ -1144,7 +1144,9 @@ proc drawRectangleLines*(rec: Rectangle, lineThick: float32, color: Color) {.imp
   ## Draw rectangle outline with extended parameters
 proc drawRectangleRounded*(rec: Rectangle, roundness: float32, segments: int32, color: Color) {.importc: "DrawRectangleRounded".}
   ## Draw rectangle with rounded edges
-proc drawRectangleRoundedLines*(rec: Rectangle, roundness: float32, segments: int32, lineThick: float32, color: Color) {.importc: "DrawRectangleRoundedLines".}
+proc drawRectangleRoundedLines*(rec: Rectangle, roundness: float32, segments: int32, color: Color) {.importc: "DrawRectangleRoundedLines".}
+  ## Draw rectangle lines with rounded edges
+proc drawRectangleRoundedLines*(rec: Rectangle, roundness: float32, segments: int32, lineThick: float32, color: Color) {.importc: "DrawRectangleRoundedLinesEx".}
   ## Draw rectangle with rounded edges outline
 proc drawTriangle*(v1: Vector2, v2: Vector2, v3: Vector2, color: Color) {.importc: "DrawTriangle".}
   ## Draw a color-filled triangle (vertex in counter-clockwise order!)
