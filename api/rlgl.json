@@ -9,7 +9,7 @@
     {
       "name": "RLGL_VERSION",
       "type": "STRING",
-      "value": "4.5",
+      "value": "5.0",
       "description": ""
     },
     {
@@ -505,6 +505,18 @@
       "description": "GL_BLEND_COLOR"
     },
     {
+      "name": "RL_READ_FRAMEBUFFER",
+      "type": "INT",
+      "value": 36008,
+      "description": "GL_READ_FRAMEBUFFER"
+    },
+    {
+      "name": "RL_DRAW_FRAMEBUFFER",
+      "type": "INT",
+      "value": 36009,
+      "description": "GL_DRAW_FRAMEBUFFER"
+    },
+    {
       "name": "RL_MATRIX_TYPE",
       "type": "GUARD",
       "value": "",
@@ -679,6 +691,18 @@
       "description": ""
     },
     {
+      "name": "GL_PROGRAM_POINT_SIZE",
+      "type": "INT",
+      "value": 34370,
+      "description": ""
+    },
+    {
+      "name": "GL_LINE_WIDTH",
+      "type": "INT",
+      "value": 2849,
+      "description": ""
+    },
+    {
       "name": "GL_UNSIGNED_SHORT_5_6_5",
       "type": "INT",
       "value": 33635,
@@ -727,40 +751,76 @@
       "description": ""
     },
     {
+      "name": "RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION",
+      "type": "INT",
+      "value": 0,
+      "description": ""
+    },
+    {
+      "name": "RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD",
+      "type": "INT",
+      "value": 1,
+      "description": ""
+    },
+    {
+      "name": "RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL",
+      "type": "INT",
+      "value": 2,
+      "description": ""
+    },
+    {
+      "name": "RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR",
+      "type": "INT",
+      "value": 3,
+      "description": ""
+    },
+    {
+      "name": "RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT",
+      "type": "INT",
+      "value": 4,
+      "description": ""
+    },
+    {
+      "name": "RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2",
+      "type": "INT",
+      "value": 5,
+      "description": ""
+    },
+    {
       "name": "RL_DEFAULT_SHADER_ATTRIB_NAME_POSITION",
       "type": "STRING",
       "value": "vertexPosition",
-      "description": "Bound by default to shader location: 0"
+      "description": "Bound by default to shader location: RL_DEFAULT_SHADER_ATTRIB_NAME_POSITION"
     },
     {
       "name": "RL_DEFAULT_SHADER_ATTRIB_NAME_TEXCOORD",
       "type": "STRING",
       "value": "vertexTexCoord",
-      "description": "Bound by default to shader location: 1"
+      "description": "Bound by default to shader location: RL_DEFAULT_SHADER_ATTRIB_NAME_TEXCOORD"
     },
     {
       "name": "RL_DEFAULT_SHADER_ATTRIB_NAME_NORMAL",
       "type": "STRING",
       "value": "vertexNormal",
-      "description": "Bound by default to shader location: 2"
+      "description": "Bound by default to shader location: RL_DEFAULT_SHADER_ATTRIB_NAME_NORMAL"
     },
     {
       "name": "RL_DEFAULT_SHADER_ATTRIB_NAME_COLOR",
       "type": "STRING",
       "value": "vertexColor",
-      "description": "Bound by default to shader location: 3"
+      "description": "Bound by default to shader location: RL_DEFAULT_SHADER_ATTRIB_NAME_COLOR"
     },
     {
       "name": "RL_DEFAULT_SHADER_ATTRIB_NAME_TANGENT",
       "type": "STRING",
       "value": "vertexTangent",
-      "description": "Bound by default to shader location: 4"
+      "description": "Bound by default to shader location: RL_DEFAULT_SHADER_ATTRIB_NAME_TANGENT"
     },
     {
       "name": "RL_DEFAULT_SHADER_ATTRIB_NAME_TEXCOORD2",
       "type": "STRING",
       "value": "vertexTexCoord2",
-      "description": "Bound by default to shader location: 5"
+      "description": "Bound by default to shader location: RL_DEFAULT_SHADER_ATTRIB_NAME_TEXCOORD2"
     },
     {
       "name": "RL_DEFAULT_SHADER_UNIFORM_NAME_MVP",
@@ -815,6 +875,12 @@
       "type": "STRING",
       "value": "texture2",
       "description": "texture2 (texture slot active 2)"
+    },
+    {
+      "name": "rlMatrixToFloat(mat)",
+      "type": "MACRO",
+      "value": "(rlMatrixToFloatV(mat).v)",
+      "description": "Get float vector for Matrix"
     },
     {
       "name": "MIN(a,b)",
@@ -951,9 +1017,9 @@
           "description": "OpenGL Vertex Array Object id"
         },
         {
-          "type": "unsigned int[4]",
+          "type": "unsigned int[5]",
           "name": "vboId",
-          "description": "OpenGL Vertex Buffer Objects id (4 types of vertex data)"
+          "description": "OpenGL Vertex Buffer Objects id (5 types of vertex data)"
         }
       ]
     },
@@ -2069,6 +2135,31 @@
       ]
     },
     {
+      "name": "rlSetClipPlanes",
+      "description": "Set clip planes distances",
+      "returnType": "void",
+      "params": [
+        {
+          "type": "double",
+          "name": "near"
+        },
+        {
+          "type": "double",
+          "name": "far"
+        }
+      ]
+    },
+    {
+      "name": "rlGetCullDistanceNear",
+      "description": "Get cull plane distance near",
+      "returnType": "double"
+    },
+    {
+      "name": "rlGetCullDistanceFar",
+      "description": "Get cull plane distance far",
+      "returnType": "double"
+    },
+    {
       "name": "rlBegin",
       "description": "Initialize drawing mode (how to organize vertex)",
       "returnType": "void",
@@ -2442,6 +2533,11 @@
       "returnType": "void"
     },
     {
+      "name": "rlGetActiveFramebuffer",
+      "description": "Get the currently active render texture (fbo), 0 for default framebuffer",
+      "returnType": "unsigned int"
+    },
+    {
       "name": "rlActiveDrawBuffers",
       "description": "Activate multiple draw color buffers",
       "returnType": "void",
@@ -2496,6 +2592,21 @@
       ]
     },
     {
+      "name": "rlBindFramebuffer",
+      "description": "Bind framebuffer (FBO)",
+      "returnType": "void",
+      "params": [
+        {
+          "type": "unsigned int",
+          "name": "target"
+        },
+        {
+          "type": "unsigned int",
+          "name": "framebuffer"
+        }
+      ]
+    },
+    {
       "name": "rlEnableColorBlend",
       "description": "Enable color blending",
       "returnType": "void"
@@ -2534,6 +2645,29 @@
       "name": "rlDisableBackfaceCulling",
       "description": "Disable backface culling",
       "returnType": "void"
+    },
+    {
+      "name": "rlColorMask",
+      "description": "Color mask control",
+      "returnType": "void",
+      "params": [
+        {
+          "type": "bool",
+          "name": "r"
+        },
+        {
+          "type": "bool",
+          "name": "g"
+        },
+        {
+          "type": "bool",
+          "name": "b"
+        },
+        {
+          "type": "bool",
+          "name": "a"
+        }
+      ]
     },
     {
       "name": "rlSetCullFace",
@@ -3024,8 +3158,8 @@
           "name": "stride"
         },
         {
-          "type": "const void *",
-          "name": "pointer"
+          "type": "int",
+          "name": "offset"
         }
       ]
     },
@@ -3356,17 +3490,7 @@
     {
       "name": "rlLoadFramebuffer",
       "description": "Load an empty framebuffer",
-      "returnType": "unsigned int",
-      "params": [
-        {
-          "type": "int",
-          "name": "width"
-        },
-        {
-          "type": "int",
-          "name": "height"
-        }
-      ]
+      "returnType": "unsigned int"
     },
     {
       "name": "rlFramebufferAttach",

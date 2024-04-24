@@ -119,6 +119,18 @@ type
     BlendSrcAlpha = 0x80CB ## GL_BLEND_SRC_ALPHA
     BlendEquationAlpha = 0x883D ## GL_BLEND_EQUATION_ALPHA
 
+  FramebufferTarget* {.size: sizeof(int32).} = enum
+    ReadFramebuffer = 0x8CA8 ## GL_READ_FRAMEBUFFER
+    DrawFramebuffer = 0x8CA9 ## GL_DRAW_FRAMEBUFFER
+
+  DefaultShaderLocationIndex* {.size: sizeof(int32).} = enum ## Default shader vertex attribute locations
+    AttribPosition = 0
+    AttribTexcoord
+    AttribNormal
+    AttribColor
+    AttribTangent
+    AttribTexcoord2
+
   DefaultShaderVariableName* = enum ## Default shader vertex attribute names to set location points
     AttribPosition = "vertexPosition" ## Binded by default to shader location: 0
     AttribTexcoord = "vertexTexCoord" ## Binded by default to shader location: 1
@@ -285,9 +297,9 @@ proc getPixelFormatName*(format: PixelFormat): string =
     "rlglData"
   ]
   enumInFuncReturn = [
-    ("rlGetLocationUniform", 19),
-    ("rlGetLocationAttrib", 19),
-    ("rlGetVersion", 32),
+    ("rlGetLocationUniform", 20),
+    ("rlGetLocationAttrib", 20),
+    ("rlGetVersion", 33),
   ]
   enumInFuncParams = [
     # TextureParameter
@@ -296,6 +308,7 @@ proc getPixelFormatName*(format: PixelFormat): string =
     ("rlBegin", "mode"),
     ("rlSetVertexAttribute", "type"),
     ("rlCompileShader", "type"),
+    ("rlBindFramebuffer", "target"),
     ("rlLoadShaderBuffer", "usageHint"),
     ("rlFramebufferAttach", "attachType"),
     ("rlFramebufferAttach", "texType"),
@@ -330,6 +343,7 @@ proc getPixelFormatName*(format: PixelFormat): string =
     "DrawMode",
     "GlType",
     "ShaderType",
+    "FramebufferTarget",
     "BufferUsageHint",
     "FramebufferAttachType",
     "FramebufferAttachTextureType",

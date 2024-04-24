@@ -110,6 +110,18 @@ type
     BlendSrcAlpha = 0x80CB ## GL_BLEND_SRC_ALPHA
     BlendEquationAlpha = 0x883D ## GL_BLEND_EQUATION_ALPHA
 
+  FramebufferTarget* {.size: sizeof(int32).} = enum
+    ReadFramebuffer = 0x8CA8 ## GL_READ_FRAMEBUFFER
+    DrawFramebuffer = 0x8CA9 ## GL_DRAW_FRAMEBUFFER
+
+  DefaultShaderLocationIndex* {.size: sizeof(int32).} = enum ## Default shader vertex attribute locations
+    AttribPosition = 0
+    AttribTexcoord
+    AttribNormal
+    AttribColor
+    AttribTangent
+    AttribTexcoord2
+
   DefaultShaderVariableName* = enum ## Default shader vertex attribute names to set location points
     AttribPosition = "vertexPosition" ## Binded by default to shader location: 0
     AttribTexcoord = "vertexTexCoord" ## Binded by default to shader location: 1
@@ -174,7 +186,7 @@ type
     else:
       indices: ptr UncheckedArray[uint16]
     vaoId*: uint32 ## OpenGL Vertex Array Object id
-    vboId*: array[4, uint32] ## OpenGL Vertex Buffer Objects id (4 types of vertex data)
+    vboId*: array[5, uint32] ## OpenGL Vertex Buffer Objects id (5 types of vertex data)
 
   DrawCall* {.importc: "rlDrawCall", nodecl, bycopy.} = object ## of those state-change happens (this is done in core module)
     mode*: int32 ## Drawing mode: LINES, TRIANGLES, QUADS
@@ -218,6 +230,12 @@ proc frustum*(left: float, right: float, bottom: float, top: float, znear: float
 proc ortho*(left: float, right: float, bottom: float, top: float, znear: float, zfar: float) {.importc: "rlOrtho".}
 proc viewport*(x: int32, y: int32, width: int32, height: int32) {.importc: "rlViewport".}
   ## Set the viewport area
+proc setClipPlanes*(near: float, far: float) {.importc: "rlSetClipPlanes".}
+  ## Set clip planes distances
+proc getCullDistanceNear*(): float {.importc: "rlGetCullDistanceNear".}
+  ## Get cull plane distance near
+proc getCullDistanceFar*(): float {.importc: "rlGetCullDistanceFar".}
+  ## Get cull plane distance far
 proc rlBegin*(mode: DrawMode) {.importc: "rlBegin".}
   ## Initialize drawing mode (how to organize vertex)
 proc rlEnd*() {.importc: "rlEnd".}
@@ -280,10 +298,14 @@ proc enableFramebuffer*(id: uint32) {.importc: "rlEnableFramebuffer".}
   ## Enable render texture (fbo)
 proc disableFramebuffer*() {.importc: "rlDisableFramebuffer".}
   ## Disable render texture (fbo), return to default framebuffer
+proc getActiveFramebuffer*(): uint32 {.importc: "rlGetActiveFramebuffer".}
+  ## Get the currently active render texture (fbo), 0 for default framebuffer
 proc activeDrawBuffers*(count: int32) {.importc: "rlActiveDrawBuffers".}
   ## Activate multiple draw color buffers
 proc blitFramebuffer*(srcX: int32, srcY: int32, srcWidth: int32, srcHeight: int32, dstX: int32, dstY: int32, dstWidth: int32, dstHeight: int32, bufferMask: int32) {.importc: "rlBlitFramebuffer".}
   ## Blit active framebuffer to main framebuffer
+proc bindFramebuffer*(target: FramebufferTarget, framebuffer: uint32) {.importc: "rlBindFramebuffer".}
+  ## Bind framebuffer (FBO)
 proc enableColorBlend*() {.importc: "rlEnableColorBlend".}
   ## Enable color blending
 proc disableColorBlend*() {.importc: "rlDisableColorBlend".}
@@ -300,6 +322,8 @@ proc enableBackfaceCulling*() {.importc: "rlEnableBackfaceCulling".}
   ## Enable backface culling
 proc disableBackfaceCulling*() {.importc: "rlDisableBackfaceCulling".}
   ## Disable backface culling
+proc colorMask*(r: bool, g: bool, b: bool, a: bool) {.importc: "rlColorMask".}
+  ## Color mask control
 proc setCullFace*(mode: CullMode) {.importc: "rlSetCullFace".}
   ## Set face culling mode
 proc enableScissorTest*() {.importc: "rlEnableScissorTest".}
@@ -390,7 +414,7 @@ proc unloadVertexArray*(vaoId: uint32) {.importc: "rlUnloadVertexArray".}
   ## Unload vertex array (vao)
 proc unloadVertexBuffer*(vboId: uint32) {.importc: "rlUnloadVertexBuffer".}
   ## Unload vertex buffer object
-proc setVertexAttribute*(index: uint32, compSize: int32, `type`: GlType, normalized: bool, stride: int32, pointer: pointer) {.importc: "rlSetVertexAttribute".}
+proc setVertexAttribute*(index: uint32, compSize: int32, `type`: GlType, normalized: bool, stride: int32, offset: int32) {.importc: "rlSetVertexAttribute".}
   ## Set vertex attribute data configuration
 proc setVertexAttributeDivisor*(index: uint32, divisor: int32) {.importc: "rlSetVertexAttributeDivisor".}
   ## Set vertex attribute data divisor
@@ -422,7 +446,7 @@ proc readTexturePixels*(id: uint32, width: int32, height: int32, format: PixelFo
   ## Read texture pixel data
 proc readScreenPixels*(width: int32, height: int32): var uint8 {.importc: "rlReadScreenPixels".}
   ## Read screen pixel data (color buffer)
-proc loadFramebuffer*(width: int32, height: int32): uint32 {.importc: "rlLoadFramebuffer".}
+proc loadFramebuffer*(): uint32 {.importc: "rlLoadFramebuffer".}
   ## Load an empty framebuffer
 proc framebufferAttach*(fboId: uint32, texId: uint32, attachType: FramebufferAttachType, texType: FramebufferAttachTextureType, mipLevel: int32) {.importc: "rlFramebufferAttach".}
   ## Attach texture/renderbuffer to a framebuffer
