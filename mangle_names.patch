@@ -153,7 +153,7 @@ index d8568d9..5f38019 100644
                  #endif
  
 diff --git a/src/platforms/rcore_desktop.c b/src/platforms/rcore_desktop.c
-index de289ca..dd087cd 100644
+index f087741..07dd073 100644
 --- a/src/platforms/rcore_desktop.c
 +++ b/src/platforms/rcore_desktop.c
 @@ -951,7 +951,7 @@ const char *GetClipboardText(void)
@@ -227,7 +227,7 @@ index 9328b8c..1ddcbcb 100644
      if (CORE.Input.Mouse.cursorHidden)
      {
 diff --git a/src/raylib.h b/src/raylib.h
-index b946322..4727c69 100644
+index 035f6f2..edb7d85 100644
 --- a/src/raylib.h
 +++ b/src/raylib.h
 @@ -246,12 +246,12 @@ typedef struct Color {
@@ -497,7 +497,7 @@ index b229589..1f09fb4 100644
      #endif
  
 diff --git a/src/rmodels.c b/src/rmodels.c
-index 5efc322..26b8636 100644
+index 27c19a3..69178de 100644
 --- a/src/rmodels.c
 +++ b/src/rmodels.c
 @@ -3580,13 +3580,13 @@ void DrawModelWiresEx(Model model, Vector3 position, Vector3 rotationAxis, float
@@ -535,7 +535,7 @@ index 5efc322..26b8636 100644
      }
      else if (cgltfImage->buffer_view->buffer->data != NULL)    // Check if image is provided as data buffer
 diff --git a/src/rshapes.c b/src/rshapes.c
-index 9020195..7231363 100644
+index 80df64e..97e7904 100644
 --- a/src/rshapes.c
 +++ b/src/rshapes.c
 @@ -80,7 +80,7 @@
@@ -583,7 +583,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
  
-@@ -312,7 +312,7 @@ void DrawCircleSector(Vector2 center, float radius, float startAngle, float endA
+@@ -314,7 +314,7 @@ void DrawCircleSector(Vector2 center, float radius, float startAngle, float endA
  
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -592,7 +592,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
  
-@@ -541,7 +541,7 @@ void DrawRing(Vector2 center, float innerRadius, float outerRadius, float startA
+@@ -543,7 +543,7 @@ void DrawRing(Vector2 center, float innerRadius, float outerRadius, float startA
  
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -601,7 +601,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
          for (int i = 0; i < segments; i++)
-@@ -670,17 +670,17 @@ void DrawRectangle(int posX, int posY, int width, int height, Color color)
+@@ -672,17 +672,17 @@ void DrawRectangle(int posX, int posY, int width, int height, Color color)
  // NOTE: On OpenGL 3.3 and ES2 we use QUADS to avoid drawing order issues
  void DrawRectangleV(Vector2 position, Vector2 size, Color color)
  {
@@ -622,7 +622,7 @@ index 9020195..7231363 100644
  {
      Vector2 topLeft = { 0 };
      Vector2 topRight = { 0 };
-@@ -721,7 +721,7 @@ void DrawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color
+@@ -723,7 +723,7 @@ void DrawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color
  
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -631,7 +631,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
  
-@@ -764,22 +764,22 @@ void DrawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color
+@@ -766,22 +766,22 @@ void DrawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color
  // NOTE: Gradient goes from bottom (color1) to top (color2)
  void DrawRectangleGradientV(int posX, int posY, int width, int height, Color color1, Color color2)
  {
@@ -658,7 +658,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
          rlNormal3f(0.0f, 0.0f, 1.0f);
-@@ -828,7 +828,7 @@ void DrawRectangleLines(int posX, int posY, int width, int height, Color color)
+@@ -830,7 +830,7 @@ void DrawRectangleLines(int posX, int posY, int width, int height, Color color)
  }
  
  // Draw rectangle outline with extended parameters
@@ -667,7 +667,7 @@ index 9020195..7231363 100644
  {
      if ((lineThick > rec.width) || (lineThick > rec.height))
      {
-@@ -847,10 +847,10 @@ void DrawRectangleLinesEx(Rectangle rec, float lineThick, Color color)
+@@ -849,10 +849,10 @@ void DrawRectangleLinesEx(Rectangle rec, float lineThick, Color color)
      //   BBBBBBBB
      //
  
@@ -682,7 +682,7 @@ index 9020195..7231363 100644
  
      DrawRectangleRec(top, color);
      DrawRectangleRec(bottom, color);
-@@ -859,7 +859,7 @@ void DrawRectangleLinesEx(Rectangle rec, float lineThick, Color color)
+@@ -861,7 +861,7 @@ void DrawRectangleLinesEx(Rectangle rec, float lineThick, Color color)
  }
  
  // Draw rectangle with rounded edges
@@ -691,7 +691,7 @@ index 9020195..7231363 100644
  {
      // Not a rounded rectangle
      if ((roundness <= 0.0f) || (rec.width < 1) || (rec.height < 1 ))
-@@ -915,7 +915,7 @@ void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color co
+@@ -917,7 +917,7 @@ void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color co
  
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -700,7 +700,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
          // Draw all the 4 corners: [1] Upper Left Corner, [3] Upper Right Corner, [5] Lower Right Corner, [7] Lower Left Corner
-@@ -1086,20 +1086,20 @@ void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color co
+@@ -1088,20 +1088,20 @@ void DrawRectangleRounded(Rectangle rec, float roundness, int segments, Color co
  
  // Draw rectangle with rounded edges
  // TODO: This function should be refactored to use RL_LINES, for consistency with other Draw*Lines()
@@ -724,7 +724,7 @@ index 9020195..7231363 100644
          return;
      }
  
-@@ -1158,7 +1158,7 @@ void DrawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, f
+@@ -1160,7 +1160,7 @@ void DrawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, f
      {
  #if defined(SUPPORT_QUADS_DRAW_MODE)
          rlSetTexture(GetShapesTexture().id);
@@ -733,7 +733,7 @@ index 9020195..7231363 100644
  
          rlBegin(RL_QUADS);
  
-@@ -1334,7 +1334,7 @@ void DrawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color)
+@@ -1336,7 +1336,7 @@ void DrawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color)
  {
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -742,7 +742,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
          rlColor4ub(color.r, color.g, color.b, color.a);
-@@ -1388,7 +1388,7 @@ void DrawTriangleFan(Vector2 *points, int pointCount, Color color)
+@@ -1390,7 +1390,7 @@ void DrawTriangleFan(Vector2 *points, int pointCount, Color color)
      if (pointCount >= 3)
      {
          rlSetTexture(GetShapesTexture().id);
@@ -751,7 +751,7 @@ index 9020195..7231363 100644
  
          rlBegin(RL_QUADS);
              rlColor4ub(color.r, color.g, color.b, color.a);
-@@ -1449,7 +1449,7 @@ void DrawPoly(Vector2 center, int sides, float radius, float rotation, Color col
+@@ -1451,7 +1451,7 @@ void DrawPoly(Vector2 center, int sides, float radius, float rotation, Color col
  
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -760,7 +760,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
          for (int i = 0; i < sides; i++)
-@@ -1518,7 +1518,7 @@ void DrawPolyLinesEx(Vector2 center, int sides, float radius, float rotation, fl
+@@ -1520,7 +1520,7 @@ void DrawPolyLinesEx(Vector2 center, int sides, float radius, float rotation, fl
  
  #if defined(SUPPORT_QUADS_DRAW_MODE)
      rlSetTexture(GetShapesTexture().id);
@@ -769,7 +769,7 @@ index 9020195..7231363 100644
  
      rlBegin(RL_QUADS);
          for (int i = 0; i < sides; i++)
-@@ -2154,7 +2154,7 @@ Vector2 GetSplinePointBezierCubic(Vector2 startPos, Vector2 startControlPos, Vec
+@@ -2156,7 +2156,7 @@ Vector2 GetSplinePointBezierCubic(Vector2 startPos, Vector2 startControlPos, Vec
  //----------------------------------------------------------------------------------
  
  // Check if point is inside rectangle
@@ -778,7 +778,7 @@ index 9020195..7231363 100644
  {
      bool collision = false;
  
-@@ -2213,7 +2213,7 @@ bool CheckCollisionPointPoly(Vector2 point, Vector2 *points, int pointCount)
+@@ -2215,7 +2215,7 @@ bool CheckCollisionPointPoly(Vector2 point, Vector2 *points, int pointCount)
  }
  
  // Check collision between two rectangles
@@ -787,7 +787,7 @@ index 9020195..7231363 100644
  {
      bool collision = false;
  
-@@ -2240,7 +2240,7 @@ bool CheckCollisionCircles(Vector2 center1, float radius1, Vector2 center2, floa
+@@ -2242,7 +2242,7 @@ bool CheckCollisionCircles(Vector2 center1, float radius1, Vector2 center2, floa
  
  // Check collision between circle and rectangle
  // NOTE: Reviewed version to take into account corner limit case
@@ -796,7 +796,7 @@ index 9020195..7231363 100644
  {
      bool collision = false;
  
-@@ -2314,9 +2314,9 @@ bool CheckCollisionPointLine(Vector2 point, Vector2 p1, Vector2 p2, int threshol
+@@ -2316,9 +2316,9 @@ bool CheckCollisionPointLine(Vector2 point, Vector2 p1, Vector2 p2, int threshol
  }
  
  // Get collision rectangle for two rectangles collision
@@ -809,7 +809,7 @@ index 9020195..7231363 100644
      float left = (rec1.x > rec2.x)? rec1.x : rec2.x;
      float right1 = rec1.x + rec1.width;
 diff --git a/src/rtext.c b/src/rtext.c
-index 47f3e06..c627686 100644
+index b5ba17e..0eb3746 100644
 --- a/src/rtext.c
 +++ b/src/rtext.c
 @@ -260,7 +260,7 @@ extern void LoadFontDefault(void)
@@ -995,7 +995,7 @@ index 47f3e06..c627686 100644
              // Save data properly in sprite font
              font.glyphs[i].value = charId;
 diff --git a/src/rtextures.c b/src/rtextures.c
-index 0658a68..3e117aa 100644
+index 47ff83f..4ef33b9 100644
 --- a/src/rtextures.c
 +++ b/src/rtextures.c
 @@ -271,7 +271,7 @@ static Vector4 *LoadImageDataNormalized(Image image);       // Load pixel data f

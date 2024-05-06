@@ -297,7 +297,7 @@ type
     RightFaceLeft ## Gamepad right button left (i.e. PS3: Square, Xbox: X)
     LeftTrigger1 ## Gamepad top/back trigger left (first), it could be a trailing button
     LeftTrigger2 ## Gamepad top/back trigger left (second), it could be a trailing button
-    RightTrigger1 ## Gamepad top/back trigger right (one), it could be a trailing button
+    RightTrigger1 ## Gamepad top/back trigger right (first), it could be a trailing button
     RightTrigger2 ## Gamepad top/back trigger right (second), it could be a trailing button
     MiddleLeft ## Gamepad center buttons, left one (i.e. PS3: Select)
     Middle ## Gamepad center buttons, middle one (i.e. PS3: PS, Xbox: XBOX)
@@ -448,11 +448,11 @@ type
     PinchOut = 512 ## Pinch out gesture
 
   CameraMode* {.size: sizeof(int32).} = enum ## Camera system modes
-    Custom ## Custom camera
-    Free ## Free camera
-    Orbital ## Orbital camera
-    FirstPerson ## First person camera
-    ThirdPerson ## Third person camera
+    Custom ## Camera custom, controlled by user (UpdateCamera() does nothing)
+    Free ## Camera free mode
+    Orbital ## Camera orbital, around target, zoom supported
+    FirstPerson ## Camera first person
+    ThirdPerson ## Camera third person
 
   CameraProjection* {.size: sizeof(int32).} = enum ## Camera projection
     Perspective ## Perspective projection
